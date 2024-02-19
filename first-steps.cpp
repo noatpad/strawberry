@@ -49,10 +49,10 @@ int main() {
     // Toggle pin as high or low
     level = i % 2 ? GPSET0 : GPCLR0;
     bank = pin >> 5;
-    gpio[reg + level + bank] = 1 << (pin & 31);
+    gpio[level + bank] = 1 << (pin & 31);
 
     // Print out current GPIO level from GPLEV register
-    level = (gpio[reg + GPLEV0 + bank] & (1 << (pin & 31))) != 0;
+    level = (gpio[GPLEV0 + bank] & (1 << (pin & 31))) != 0;
     printf("Pin %d is level %d\n", pin, level);
     sleep(1);
   }
