@@ -28,7 +28,7 @@ int setupGpio();
 int finalizeGpio();
 
 void setPinMode(int pin, int mode);
-// int getPinMode(int pin);
+int getPinMode(int pin);
 int readPin(int pin);
 void writePin(int pin, int level);
 void togglePin(int pin);

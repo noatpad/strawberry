@@ -6,6 +6,7 @@ void logError(char *message) {
   fprintf(stderr, message);
 }
 
+/* Sets up the gpio memory map for later usage */
 int setupGpio() {
   // Open gpiomem
   int fd = open("/dev/gpiomem", O_RDWR | O_SYNC);
@@ -35,6 +36,7 @@ int setupGpio() {
   return 0;
 }
 
+/* Tears down the GPIO initialization and memory map */
 int finalizeGpio() {
   if (munmap((void*) gpio, GPIO_LENGTH) < 0) {
     fprintf(stderr, "ERROR: Could not deallocate gpiomem mapping!\n");
@@ -45,26 +47,35 @@ int finalizeGpio() {
   return 0;
 }
 
+/* Sets a designated pin to a certain "mode". You will often use `MODE_IN` or `MODE_OUT` as your mode */
 void setPinMode(int pin, int mode) {
   int reg = pin / 10;
   int shift = (pin % 10) * 3;
   gpio[reg] = (gpio[reg] & ~(0x111 << shift)) | (mode << shift);
 }
 
+/* Gets the designated pin's "mode", ranging from 0-7 */
+int getPinMode(int pin) {
+  int reg = pin / 10;
+  int shift = (pin % 10) * 3;
+  return (gpio[reg] >> shift) & 0x111;
+}
+
+/* Reads a pin's current level, returns `HIGH` or `LOW` */
 int readPin(int pin) {
   int bank = pin >> 5;
   int level = gpio[GPLEV0 + bank] & (1 << (pin & 31));
   return level != LOW;
 }
 
+/* Sets a pin's level to `HIGH` or `LOW` */
 void writePin(int pin, int level) {
   int reg = (level == HIGH ? GPSET0 : GPCLR0);
   int bank = pin >> 5;
   gpio[reg + bank] = 1 << (pin & 31);
 }
 
+/* Toggles a pin between `HIGH` and `LOW` */
 void togglePin(int pin) {
-  int level = readPin(pin);
-  level = (level == HIGH ? LOW : HIGH);
-  writePin(pin, level);
+  writePin(pin, (readPin(pin) == HIGH ? LOW : HIGH));
 }
