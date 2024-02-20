@@ -2,16 +2,16 @@
 
 volatile unsigned int *gpio;
 
-void logError(char *message) {
+void logError(const char *message) {
   fprintf(stderr, message);
 }
 
 /* Sets up the gpio memory map for later usage */
 int setupGpio() {
   // Open gpiomem
-  int fd = open("/dev/gpiomem", O_RDWR | O_SYNC);
+  int fd = open("/dev/gpiomemaaa", O_RDWR | O_SYNC);
   if (fd < 0) {
-    fprintf(stderr, "ERROR: Unable to access /dev/gpiomem!\n");
+    logError("ERROR: Unable to access /dev/gpiomem!\n");
     exit(-1);
     return 1;
   }
@@ -28,7 +28,7 @@ int setupGpio() {
   close(fd);
 
   if (gpio == MAP_FAILED) {
-    fprintf(stderr, "ERROR: Unable to access /dev/gpiomem!\n");
+    logError("ERROR: Unable to access /dev/gpiomem!\n");
     exit(-1);
     return 1;
   }
@@ -39,7 +39,7 @@ int setupGpio() {
 /* Tears down the GPIO initialization and memory map */
 int finalizeGpio() {
   if (munmap((void*) gpio, GPIO_LENGTH) < 0) {
-    fprintf(stderr, "ERROR: Could not deallocate gpiomem mapping!\n");
+    logError("ERROR: Could not deallocate gpiomem mapping!\n");
     exit(-1);
     return 1;
   }
