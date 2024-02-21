@@ -9,7 +9,7 @@ void logError(const char *message) {
 /* Sets up the gpio memory map for later usage */
 int setupGpio() {
   // Open gpiomem
-  int fd = open("/dev/gpiomemaaa", O_RDWR | O_SYNC);
+  int fd = open("/dev/gpiomem", O_RDWR | O_SYNC);
   if (fd < 0) {
     logError("ERROR: Unable to access /dev/gpiomem!\n");
     exit(-1);
