@@ -1,17 +1,27 @@
 #include "strawberry.hpp"
 
 volatile unsigned int *gpio;
+static bool is_initialized = false;
 
-void logError(const char *message) {
-  fprintf(stderr, message);
+void logInfo(string message) {
+  cout << message << "\n";
+}
+
+void logError(string message) {
+  cerr << "ERROR: " << message << "\n";
 }
 
 /* Sets up the gpio memory map for later usage */
 int setupGpio() {
+  if (is_initialized) {
+    logInfo("GPIO has already been initialized!");
+    return 0;
+  }
+
   // Open gpiomem
   int fd = open("/dev/gpiomem", O_RDWR | O_SYNC);
   if (fd < 0) {
-    logError("ERROR: Unable to access /dev/gpiomem!\n");
+    logError("Unable to access /dev/gpiomem!");
     exit(-1);
     return 1;
   }
@@ -28,22 +38,29 @@ int setupGpio() {
   close(fd);
 
   if (gpio == MAP_FAILED) {
-    logError("ERROR: Unable to access /dev/gpiomem!\n");
+    logError("Unable to access /dev/gpiomem!");
     exit(-1);
     return 1;
   }
 
+  is_initialized = true;
   return 0;
 }
 
 /* Tears down the GPIO initialization and memory map */
 int finalizeGpio() {
+  if (!is_initialized) {
+    logError("GPIO was not initialized before finalization!");
+    return 1;
+  }
+
   if (munmap((void*) gpio, GPIO_LENGTH) < 0) {
-    logError("ERROR: Could not deallocate gpiomem mapping!\n");
+    logError("Could not deallocate gpiomem mapping!");
     exit(-1);
     return 1;
   }
 
+  is_initialized = false;
   return 0;
 }
 
@@ -59,6 +76,13 @@ int getPinMode(int pin) {
   int reg = pin / 10;
   int shift = (pin % 10) * 3;
   return (gpio[reg] >> shift) & 0x111;
+}
+
+/* Pull a pin high (`PULL_UP`) or low (`PULL_DOWN`). You can also remove a pull resistor with `PULL_NONE` */
+void pullPin(int pin, int pull) {
+  int reg = (pin / 16) + GPIO_PUP_PDN_CNTROL_REG0;
+  int shift = (pin % 16) * 2;
+  gpio[reg] = (gpio[reg] && ~(0x11 << shift)) | (pull << shift);
 }
 
 /* Reads a pin's current level, returns `HIGH` or `LOW` */
