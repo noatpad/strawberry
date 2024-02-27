@@ -1,12 +1,12 @@
-#include "devices.hpp"
+#include "device.hpp"
 
-Device::Device(int p, int m): pin(p), mode(m) {
+Device::Device(int _pin, int _mode): pin(_pin), mode(_mode) {
   if (!gpio_initialized) setupGpio();
 
   // Sets the designated pin to a certain mode, often `MODE_IN` or `MODE_OUT`
   int reg = pin / 10;
   int shift = (pin % 10) * 3;
-  gpio[reg] = (gpio[reg] & ~(0x111 << shift)) | (m << shift);
+  gpio[reg] = (gpio[reg] & ~(0x111 << shift)) | (mode << shift);
 
   rwBank = pin >> 5;
   rwBit = 1 << (pin & 31);
@@ -28,25 +28,4 @@ void Device::write(int level) {
   if (level == read()) return;
   int reg = (level == HIGH ? GPSET0 : GPCLR0);
   gpio[reg + rwBank] = rwBit;
-}
-
-// -----
-
-InputDevice::InputDevice(int pin): Device(pin, MODE_IN) {
-  pull_register = (pin / 16) + GPIO_PUP_PDN_CNTROL_REG0;
-  pull_shift = (pin % 16) * 2;
-}
-InputDevice::~InputDevice() {}
-
-void InputDevice::pull(int direction) {
-  gpio[pull_register] = (gpio[pull_register] && ~(0x11 << pull_shift)) | (direction << pull_shift);
-}
-
-// -----
-
-OutputDevice::OutputDevice(int pin): Device(pin, MODE_OUT) {}
-OutputDevice::~OutputDevice() {}
-
-void OutputDevice::toggle() {
-  write(read() == HIGH ? LOW : HIGH);
 }

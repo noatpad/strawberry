@@ -1,7 +1,7 @@
-#ifndef DEVICES_H
-#define DEVICES_H
+#if !defined(DEVICE_H)
+#define DEVICE_H
 
-#include "strawberry.hpp"
+#include "controller.hpp"
 
 // LOW/HIGH constants
 const int LOW = 0;
@@ -38,7 +38,7 @@ protected:
   int rwBit;
 
 public:
-  Device(int p, int m);
+  Device(int _pin, int _mode);
   ~Device();
 
   int getMode();
@@ -46,29 +46,5 @@ public:
   void write(int level);
 };
 
-// -----
-
-class InputDevice: public Device {
-private:
-  int pull_up_down;
-  int pull_register;
-  int pull_shift;
-
-public:
-  InputDevice(int pin);
-  ~InputDevice();
-
-  void pull(int direction);
-};
-
-// -----
-
-class OutputDevice: public Device {
-public:
-  OutputDevice(int pin);
-  ~OutputDevice();
-
-  void toggle();
-};
 
 #endif
