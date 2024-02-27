@@ -24,11 +24,4 @@ void logError(string message);
 int setupGpio();
 int finalizeGpio();
 
-// void setPinMode(int pin, int mode);
-// int getPinMode(int pin);
-// void pullPin(int pin, int pull);
-// int readPin(int pin);
-// void writePin(int pin, int level);
-// void togglePin(int pin);
-
 #endif

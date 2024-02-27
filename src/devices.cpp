@@ -1,9 +1,7 @@
 #include "devices.hpp"
 
 Device::Device(int p, int m): pin(p), mode(m) {
-  if (!gpio_initialized) {
-    setupGpio();
-  }
+  if (!gpio_initialized) setupGpio();
 
   // Sets the designated pin to a certain mode, often `MODE_IN` or `MODE_OUT`
   int reg = pin / 10;
