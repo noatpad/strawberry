@@ -11,7 +11,6 @@ const int HIGH = 1;
 const int GPSET0 = 7;                       // 0x1c
 const int GPCLR0 = 10;                      // 0x28
 const int GPLEV0 = 13;                      // 0x34
-const int GPIO_PUP_PDN_CNTROL_REG0 = 57;    // 0xe4
 
 // Pin modes
 const int MODE_IN = 0;
@@ -22,11 +21,6 @@ const int MODE_OUT = 1;
 // const int MODE_ALT3 = 5;
 // const int MODE_ALT4 = 6;
 // const int MODE_ALT5 = 7;
-
-// Pull up/down options
-const int PULL_NONE = 0;
-const int PULL_UP = 1;
-const int PULL_DOWN = 2;
 
 class Device {
 private:
@@ -43,7 +37,10 @@ public:
   Device(int _pin, int _mode, int _active_high);
   ~Device();
 
-  int getMode();
+  int get_mode();
+  int get_active_high();
+  void set_active_high(int h);
+
   bool read();
   void write(int level);
 };

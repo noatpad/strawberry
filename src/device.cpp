@@ -15,8 +15,10 @@ Device::Device(int _pin, int _mode, int _active_high): pin(_pin), mode(_mode), a
 
 Device::~Device() {}
 
-/* Gets the device's pin mode */
-int Device::getMode() { return mode; }
+/* Setters/Getters */
+int Device::get_mode() { return mode; }
+int Device::get_active_high() { return active_high; }
+void Device::set_active_high(int a) { active_high = a; }
 
 /* Reads the pin's current level, returns `HIGH` or `LOW` */
 bool Device::read() {
