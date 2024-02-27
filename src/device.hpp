@@ -32,6 +32,7 @@ class Device {
 private:
   int pin;
   int mode;
+  int active_high = HIGH;
 
 protected:
   int rwBank;
@@ -39,10 +40,11 @@ protected:
 
 public:
   Device(int _pin, int _mode);
+  Device(int _pin, int _mode, int _active_high);
   ~Device();
 
   int getMode();
-  int read();
+  bool read();
   void write(int level);
 };
 

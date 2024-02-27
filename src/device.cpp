@@ -1,6 +1,7 @@
 #include "device.hpp"
 
-Device::Device(int _pin, int _mode): pin(_pin), mode(_mode) {
+Device::Device(int _pin, int _mode): Device(_pin, _mode, HIGH) {}
+Device::Device(int _pin, int _mode, int _active_high): pin(_pin), mode(_mode), active_high(_active_high) {
   if (!gpio_initialized) setupGpio();
 
   // Sets the designated pin to a certain mode, often `MODE_IN` or `MODE_OUT`
@@ -18,9 +19,9 @@ Device::~Device() {}
 int Device::getMode() { return mode; }
 
 /* Reads the pin's current level, returns `HIGH` or `LOW` */
-int Device::read() {
+bool Device::read() {
   int level = gpio[GPLEV0 + rwBank] & rwBit;
-  return level != LOW;
+  return (level != LOW) == active_high;
 }
 
 /* Sets the pin's level to `HIGH` or `LOW` */

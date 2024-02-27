@@ -4,10 +4,17 @@
 #include "../device.hpp"
 
 class OutputDevice: public Device {
+private:
+  bool flipped;
+
 public:
   OutputDevice(int pin);
+  OutputDevice(int pin, int value);
+  OutputDevice(int pin, int value, int active_high);
   ~OutputDevice();
 
+  void off();
+  void on();
   void toggle();
 };
 
