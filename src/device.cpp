@@ -25,10 +25,3 @@ bool Device::read() {
   int level = gpio[GPLEV0 + rwBank] & rwBit;
   return (level != LOW) == active_high;
 }
-
-/* Sets the pin's level to `HIGH` or `LOW` */
-void Device::write(int level) {
-  if (level == read()) return;
-  int reg = (level == HIGH ? GPSET0 : GPCLR0);
-  gpio[reg + rwBank] = rwBit;
-}

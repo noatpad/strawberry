@@ -13,6 +13,7 @@ public:
   OutputDevice(int pin, int value, int active_high);
   ~OutputDevice();
 
+  void write(int level);
   void off();
   void on();
   void toggle();

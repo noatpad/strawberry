@@ -42,7 +42,6 @@ public:
   void set_active_high(int h);
 
   bool read();
-  void write(int level);
 };
 
 
