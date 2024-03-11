@@ -1,13 +1,12 @@
 #if !defined(LED_H)
 #define LED_H
 
-#include <chrono>
 #include <thread>
 #include "device.hpp"
 
 class LED: OutputDevice {
 private:
-  void single_blink(chrono::duration<long double, std::milli> on_time, chrono::duration<long double, std::milli> off_time);
+  void single_blink(milliseconds on_time, milliseconds off_time);
 
 public:
   LED(int pin);

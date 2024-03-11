@@ -2,6 +2,9 @@
 #define OUTPUT_DEVICE_H
 
 #include "../device.hpp"
+#include <chrono>
+
+using milliseconds = chrono::duration<long double, std::milli>;
 
 class OutputDevice: public Device {
 private:

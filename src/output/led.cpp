@@ -6,7 +6,7 @@ LED::LED(int pin, int value, int active_high): OutputDevice(pin, value, active_h
 
 LED::~LED() {}
 
-void LED::single_blink(chrono::duration<long double, std::milli> on_time, chrono::duration<long double, std::milli> off_time) {
+void LED::single_blink(milliseconds on_time, milliseconds off_time) {
   on();
   this_thread::sleep_for(on_time);
   off();
