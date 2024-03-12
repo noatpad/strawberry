@@ -5,3 +5,4 @@
 #include "output/led.hpp"
 #include "output/pwm_device.hpp"
 #include "output/pwm_led.hpp"
+#include "output/buzzer.hpp"
