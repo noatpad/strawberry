@@ -14,13 +14,9 @@ void LED::single_blink(milliseconds on_time, milliseconds off_time) {
 }
 
 void LED::blink(double time) { blink(time, time); }
-void LED::blink(double on_time, double off_time) {
-  auto da = on_time * 1s, db = off_time * 1s;
-  while (1) single_blink(da, db);
-}
-
+void LED::blink(double on_time, double off_time) { blink(on_time, off_time, 1); }
 void LED::blink(double time, int n) { blink(time, time, n); }
 void LED::blink(double on_time, double off_time, int n) {
-  auto da = on_time * 1s, db = off_time * 1s;
+  milliseconds da = on_time * 1s, db = off_time * 1s;
   for (int i = 0; i < n; i++) single_blink(da, db);
 }
