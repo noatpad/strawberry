@@ -4,9 +4,6 @@
 #include "device.hpp"
 
 class LED: OutputDevice {
-private:
-  void single_blink(milliseconds on_time, milliseconds off_time);
-
 public:
   LED(int pin);
   LED(int pin, int value);
