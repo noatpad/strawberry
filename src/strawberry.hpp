@@ -4,3 +4,4 @@
 #include "output/device.hpp"
 #include "output/led.hpp"
 #include "output/pwm_device.hpp"
+#include "output/pwm_led.hpp"
