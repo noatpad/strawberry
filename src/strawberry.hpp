@@ -3,3 +3,4 @@
 #include "input/button.hpp"
 #include "output/device.hpp"
 #include "output/led.hpp"
+#include "output/pwm_device.hpp"

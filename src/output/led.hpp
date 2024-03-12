@@ -1,7 +1,6 @@
 #if !defined(LED_H)
 #define LED_H
 
-#include <thread>
 #include "device.hpp"
 
 class LED: OutputDevice {

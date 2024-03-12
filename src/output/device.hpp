@@ -3,6 +3,7 @@
 
 #include "../device.hpp"
 #include <chrono>
+#include <thread>
 
 using milliseconds = chrono::duration<long double, std::milli>;
 
