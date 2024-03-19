@@ -1,6 +1,7 @@
 #if !defined(DEVICE_H)
 #define DEVICE_H
 
+#include <cmath>
 #include "controller.hpp"
 
 // LOW/HIGH constants
@@ -8,6 +9,7 @@ const int LOW = 0;
 const int HIGH = 1;
 
 // Register memory offsets
+const int GPFSEL0 = 0;                      // 0x00
 const int GPSET0 = 7;                       // 0x1c
 const int GPCLR0 = 10;                      // 0x28
 const int GPLEV0 = 13;                      // 0x34
@@ -31,6 +33,9 @@ private:
 protected:
   int rwBank;
   int rwBit;
+
+  void set_register(int reg, int bit_width, int value);
+  int read_register(int reg, int bit_width);
 
 public:
   Device(int _pin, int _mode);
