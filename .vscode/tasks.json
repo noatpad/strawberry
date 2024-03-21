@@ -30,6 +30,8 @@
         "-fdiagnostics-color=always",
         "-g",
         "${workspaceFolder}/src/*.cpp",
+        "${workspaceFolder}/src/input/*.cpp",
+        "${workspaceFolder}/src/output/*.cpp",
         "-o",
         "${workspaceFolder}/a.out"
       ],

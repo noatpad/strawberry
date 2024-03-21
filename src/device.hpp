@@ -1,7 +1,6 @@
 #if !defined(DEVICE_H)
 #define DEVICE_H
 
-#include <cmath>
 #include "controller.hpp"
 
 // LOW/HIGH constants
@@ -17,12 +16,6 @@ const int GPLEV0 = 13;                      // 0x34
 // Pin modes
 const int MODE_IN = 0;
 const int MODE_OUT = 1;
-// const int MODE_ALT0 = 2;
-// const int MODE_ALT1 = 3;
-// const int MODE_ALT2 = 4;
-// const int MODE_ALT3 = 5;
-// const int MODE_ALT4 = 6;
-// const int MODE_ALT5 = 7;
 
 class Device {
 private:
@@ -31,11 +24,8 @@ private:
   int active_high = HIGH;
 
 protected:
-  int rwBank;
-  int rwBit;
-
   void set_register(int reg, int bit_width, int value);
-  int read_register(int reg, int bit_width);
+  int read_register(int reg);
 
 public:
   Device(int _pin, int _mode);

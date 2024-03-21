@@ -2,6 +2,7 @@
 
 int main() {
   PWMLED led(4);
+  Button button(5);
   Buzzer buzzer(17);
 
   cout << "Beep!" << endl;

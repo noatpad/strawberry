@@ -4,12 +4,7 @@ Buzzer::Buzzer(int pin): OutputDevice(pin) {}
 Buzzer::~Buzzer() {}
 
 void Buzzer::beep() { beep(DEFAULT_BEEP_TIME); }
-void Buzzer::beep(float time) {
-  // on();
-  // this_thread::sleep_for(time * 1s);
-  // off();
-  beep(time, 1);
-}
+void Buzzer::beep(float time) { beep(time, 1); }
 void Buzzer::beep(float time, int n) { beep(time, time, n); }
 void Buzzer::beep(float on_time, float off_time, int n) {
   if (n <= 0) return;

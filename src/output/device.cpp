@@ -13,8 +13,6 @@ OutputDevice::~OutputDevice() {}
 void OutputDevice::write(int level) {
   if (level == read()) return;
   set_register(level == HIGH ? GPSET0 : GPCLR0, 1, 1);
-  // int reg = (level == HIGH ? GPSET0 : GPCLR0);
-  // gpio[reg + rwBank] = rwBit;
 }
 
 void OutputDevice::off() { write(LOW); }

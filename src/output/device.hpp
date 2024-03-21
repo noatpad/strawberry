@@ -8,9 +8,6 @@
 using milliseconds = chrono::duration<long double, std::milli>;
 
 class OutputDevice: public Device {
-private:
-  bool flipped;
-
 public:
   OutputDevice(int pin);
   OutputDevice(int pin, int value);
