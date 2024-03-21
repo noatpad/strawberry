@@ -7,7 +7,7 @@ InputDevice::InputDevice(int pin, int pull_direction): Device(pin, MODE_IN) {
 InputDevice::~InputDevice() {}
 
 void InputDevice::pull(int direction) {
-  set_register(GPIO_PUP_PDN_CNTROL_REG0, 2, direction);
+  set_register(GPIO_PUP_PDN_CNTROL_REG, direction);
   set_active_high(direction == PULL_UP ? LOW : HIGH);
 }
 

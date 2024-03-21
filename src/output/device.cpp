@@ -12,7 +12,7 @@ OutputDevice::~OutputDevice() {}
 /* Sets the pin's level to `HIGH` or `LOW` */
 void OutputDevice::write(int level) {
   if (level == read()) return;
-  set_register(level == HIGH ? GPSET0 : GPCLR0, 1, 1);
+  set_register(level == HIGH ? GPSET : GPCLR, 1);
 }
 
 void OutputDevice::off() { write(LOW); }
